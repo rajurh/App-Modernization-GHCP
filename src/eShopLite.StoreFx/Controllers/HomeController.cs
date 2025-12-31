@@ -1,5 +1,4 @@
-﻿
-using eShopLite.StoreFx.Services;
+﻿using eShopLite.StoreFx.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace eShopLite.StoreFx.Controllers
@@ -34,6 +33,16 @@ namespace eShopLite.StoreFx.Controllers
             var stores = _service.GetStores();
 
             return View(stores);
+        }
+
+        public IActionResult Error()
+        {
+            return View();
+        }
+
+        public IActionResult StatusErrorCode(int code)
+        {
+            return View("StatusErrorCode", code);
         }
     }
 }

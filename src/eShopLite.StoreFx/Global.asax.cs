@@ -23,7 +23,6 @@ namespace eShopLite.StoreFx
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
 
             AreaRegistration.RegisterAllAreas();
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
         }
     }
 }
