@@ -109,3 +109,6 @@ coverage.*
 
 # Ensure gitignore itself isn't ignored accidentally
 !.gitignore
+/src/eShopLite.StoreFx/eShopLite.db
+/src/eShopLite.StoreFx/eShopLite.db-shm
+/src/eShopLite.StoreFx/eShopLite.db-wal
