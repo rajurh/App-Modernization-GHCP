@@ -1,6 +1,6 @@
-﻿using System.Web.Mvc;
-
+﻿
 using eShopLite.StoreFx.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace eShopLite.StoreFx.Controllers
 {

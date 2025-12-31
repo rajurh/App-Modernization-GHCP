@@ -1,6 +1,4 @@
-﻿using System.Web.Mvc;
-using System.Web.Optimization;
-using System.Web.Routing;
+﻿using System.Web.Optimization;
 
 using Autofac;
 using Autofac.Integration.Mvc;

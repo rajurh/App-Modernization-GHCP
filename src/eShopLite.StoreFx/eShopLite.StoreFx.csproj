@@ -1,6 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
+    <AssemblyTitle>eShopLite.StoreFx</AssemblyTitle>
+    <Product>eShopLite.StoreFx</Product>
+    <Copyright>Copyright ©  2025</Copyright>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Autofac" Version="8.3.0" />

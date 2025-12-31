@@ -6,7 +6,8 @@ namespace eShopLite.StoreFx
     public class BundleConfig
     {
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
-        public static void RegisterBundles(BundleCollection bundles)
+        public static void RegisterBundles(// TODO System.Web.Optimization.BundleCollection is not longer supported. For more details see https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
+BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js"));
