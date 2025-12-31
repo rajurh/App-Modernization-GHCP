@@ -1,6 +1,4 @@
-﻿using System.Web.Optimization;
-
-using Autofac;
+﻿using Autofac;
 using Autofac.Integration.Mvc;
 
 using eShopLite.StoreFx.Data;
@@ -27,7 +25,6 @@ namespace eShopLite.StoreFx
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }
