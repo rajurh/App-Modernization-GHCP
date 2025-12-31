@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.ModelConfiguration.Conventions;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 using eShopLite.StoreFx.Models;
 
@@ -10,27 +10,41 @@ namespace eShopLite.StoreFx.Data
     {
         DbSet<Product> Products { get; set; }
         DbSet<StoreInfo> Stores { get; set; }
+        int SaveChanges();
     }
 
     public class StoreDbContext : DbContext, IStoreDbContext
     {
-        public StoreDbContext() : base("StoreDbContext")
+        public StoreDbContext(DbContextOptions<StoreDbContext> options) : base(options)
         {
         }
 
         public DbSet<Product> Products { get; set; }
         public DbSet<StoreInfo> Stores { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            base.OnModelCreating(modelBuilder);
+            
+            // Remove pluralizing table name convention
+            modelBuilder.Entity<Product>().ToTable("Product");
+            modelBuilder.Entity<StoreInfo>().ToTable("StoreInfo");
         }
     }
 
-    public class StoreDbInitializer : DropCreateDatabaseIfModelChanges<StoreDbContext>
+    public static class StoreDbContextSeed
     {
-        protected override void Seed(StoreDbContext context)
+        public static void Seed(StoreDbContext context)
         {
+            // Ensure database is created
+            context.Database.EnsureCreated();
+
+            // Check if data already exists
+            if (context.Products.Any())
+            {
+                return; // DB has been seeded
+            }
+
             var products = new List<Product>
             {
                 new Product { Id = 1, Name = "Solar Powered Flashlight", Description = "A fantastic product for outdoor enthusiasts", Price = 19.99m, ImageUrl = "product1.png" },
@@ -44,7 +58,7 @@ namespace eShopLite.StoreFx.Data
                 new Product { Id = 9, Name = "Camping Tent", Description = "This tent is perfect for camping trips", Price = 99.99m, ImageUrl = "product9.png" },
             };
 
-            products.ForEach(p => context.Products.Add(p));
+            context.Products.AddRange(products);
             context.SaveChanges();
 
             var stores = new List<StoreInfo>()
@@ -60,7 +74,7 @@ namespace eShopLite.StoreFx.Data
                 new StoreInfo { Id = 9, Name = "Outdoor Clothing", City = "New York", State = "NY", Hours = "9am - 5pm" }
             };
 
-            stores.ForEach(p => context.Stores.Add(p));
+            context.Stores.AddRange(stores);
             context.SaveChanges();
         }
     }

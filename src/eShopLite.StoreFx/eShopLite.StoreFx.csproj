@@ -8,21 +8,17 @@
     <FileVersion>1.0.0.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac" Version="8.3.0" />
+    <PackageReference Include="Antlr4" Version="4.6.6" />
     <PackageReference Include="bootstrap" Version="5.3.7" />
-    <PackageReference Include="EntityFramework" Version="6.5.1" />
     <PackageReference Include="jQuery" Version="3.7.1" />
     <PackageReference Include="jQuery.Validation" Version="1.21.0" />
     <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="9.0.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.0" />
     <PackageReference Include="Microsoft.jQuery.Unobtrusive.Validation" Version="4.0.0" />
     <PackageReference Include="Modernizr" Version="2.8.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="System.Diagnostics.DiagnosticSource" Version="9.0.11" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.2" />
     <PackageReference Include="WebGrease" Version="1.6.0" />
-    <PackageReference Include="Microsoft.AspNetCore.SystemWebAdapters" Version="2.2.1" />
-    <PackageReference Include="Antlr4" Version="4.6.6" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Global.asax.cs">
