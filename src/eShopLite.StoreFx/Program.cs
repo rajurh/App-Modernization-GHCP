@@ -11,7 +11,7 @@ builder.Services.AddRazorComponents()
 
 // Configure database with SQLite
 var connectionString = builder.Configuration.GetConnectionString("StoreDbContext")
-    ?? throw new InvalidOperationException("Connection string 'StoreDbContext' not found.");
+    ?? "Data Source=store.db";
 
 builder.Services.AddDbContext<StoreDbContext>(options =>
     options.UseSqlite(connectionString));
@@ -25,13 +25,16 @@ builder.Services.AddResponseCompression(options =>
     options.EnableForHttps = true;
 });
 
-// Configure HTTP strict transport security (HSTS)
-builder.Services.AddHsts(options =>
+// Configure HTTP strict transport security (HSTS) for production
+if (!builder.Environment.IsDevelopment())
 {
-    options.MaxAge = TimeSpan.FromDays(365);
-    options.IncludeSubDomains = true;
-    options.Preload = true;
-});
+    builder.Services.AddHsts(options =>
+    {
+        options.MaxAge = TimeSpan.FromDays(365);
+        options.IncludeSubDomains = true;
+        options.Preload = true;
+    });
+}
 
 var app = builder.Build();
 
@@ -54,7 +57,13 @@ else
 }
 
 app.UseResponseCompression();
-app.UseHttpsRedirection();
+
+// Only redirect to HTTPS in development (Azure Container Apps handles TLS termination)
+if (app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
+
 app.UseStaticFiles();
 app.UseAntiforgery();
 
