@@ -1,0 +1,74 @@
+@page "/"
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<PageTitle>Home - eShopLite</PageTitle>
+
+<main>
+    <section class="row" aria-labelledby="aspnetTitle">
+        <div class="col-12">
+            <h1 id="title" class="display-4">Welcome to eShopLite</h1>
+            <p class="lead">Your premier destination for outdoor equipment and adventure gear</p>
+            <div class="d-flex gap-2 mb-4">
+                <a href="/products" class="btn btn-primary btn-lg">
+                    <i class="bi bi-box-seam"></i> Browse Products
+                </a>
+                <a href="/stores" class="btn btn-outline-primary btn-lg">
+                    <i class="bi bi-shop"></i> Find a Store
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="row g-4 mt-4">
+        <section class="col-md-4" aria-labelledby="productsTitle">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 id="productsTitle" class="card-title h4">
+                        <i class="bi bi-box-seam text-primary"></i> Premium Products
+                    </h2>
+                    <p class="card-text">
+                        Discover our wide selection of outdoor equipment including camping gear, 
+                        hiking essentials, and survival kits. Quality products for every adventure.
+                    </p>
+                    <a class="btn btn-outline-primary" href="/products">
+                        View Catalog &raquo;
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="col-md-4" aria-labelledby="storesTitle">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 id="storesTitle" class="card-title h4">
+                        <i class="bi bi-shop text-success"></i> Store Locations
+                    </h2>
+                    <p class="card-text">
+                        Find an eShopLite store near you. With locations across the United States, 
+                        you're never far from quality outdoor equipment and expert advice.
+                    </p>
+                    <a class="btn btn-outline-success" href="/stores">
+                        Find Stores &raquo;
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <section class="col-md-4" aria-labelledby="aboutTitle">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h2 id="aboutTitle" class="card-title h4">
+                        <i class="bi bi-info-circle text-info"></i> About Us
+                    </h2>
+                    <p class="card-text">
+                        eShopLite has been serving outdoor enthusiasts since 2025. 
+                        We're committed to providing quality gear and exceptional customer service.
+                    </p>
+                    <a class="btn btn-outline-info" href="https://github.com/rajurh/App-Modernization-GHCP">
+                        Learn More &raquo;
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

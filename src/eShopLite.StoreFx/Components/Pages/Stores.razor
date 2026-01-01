@@ -1,0 +1,137 @@
+@page "/stores"
+@inject IStoreService StoreService
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+<PageTitle>Stores - eShopLite</PageTitle>
+
+<main aria-labelledby="title">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 id="title" class="mb-1">
+                <i class="bi bi-shop text-success"></i> Store Locations
+            </h2>
+            <p class="text-muted">Find a store near you</p>
+        </div>
+    </div>
+
+    @if (isLoading)
+    {
+        <div class="text-center p-5">
+            <div class="spinner-container">
+                <i class="bi bi-shop spinner-icon text-success" aria-hidden="true" style="font-size: 3rem;"></i>
+            </div>
+            <p class="mt-3 text-muted">Loading store information...</p>
+        </div>
+    }
+    else if (stores == null || !stores.Any())
+    {
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No stores available at this time.
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            <div class="col-12">
+                <div class="card shadow-sm">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th scope="col">
+                                            <i class="bi bi-shop"></i> Store Name
+                                        </th>
+                                        <th scope="col">
+                                            <i class="bi bi-geo-alt"></i> Location
+                                        </th>
+                                        <th scope="col">
+                                            <i class="bi bi-clock"></i> Hours
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var store in stores)
+                                    {
+                                        <tr>
+                                            <td>
+                                                <strong>@store.Name</strong>
+                                            </td>
+                                            <td>
+                                                <i class="bi bi-pin-map-fill text-danger"></i>
+                                                @store.City, @store.State
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-info">@store.Hours</span>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4">
+                    <p class="text-muted text-center">
+                        <i class="bi bi-info-circle"></i> 
+                        Showing @stores.Count() store location@(stores.Count() != 1 ? "s" : "")
+                    </p>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (errorMessage != null)
+    {
+        <div class="alert alert-danger mt-3">
+            <i class="bi bi-exclamation-triangle"></i> @errorMessage
+        </div>
+    }
+</main>
+
+<style>
+    .spinner-container {
+        display: inline-block;
+    }
+
+    .spinner-icon {
+        animation: spin 2s linear infinite;
+        display: inline-block;
+    }
+
+    @@keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    .table-hover tbody tr:hover {
+        background-color: rgba(0, 123, 255, 0.05);
+    }
+</style>
+
+@code {
+    private IEnumerable<StoreInfo>? stores;
+    private bool isLoading = true;
+    private string? errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            stores = await StoreService.GetStoresAsync();
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error loading stores: {ex.Message}";
+        }
+        finally
+        {
+            isLoading = false;
+        }
+    }
+}

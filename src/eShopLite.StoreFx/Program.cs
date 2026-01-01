@@ -1,17 +1,13 @@
+using eShopLite.StoreFx.Components;
 using eShopLite.StoreFx.Data;
 using eShopLite.StoreFx.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configure services
-builder.Services.AddControllersWithViews()
-    .AddJsonOptions(options =>
-    {
-        // Configure System.Text.Json for modern JSON serialization
-        options.JsonSerializerOptions.PropertyNamingPolicy = null;
-        options.JsonSerializerOptions.WriteIndented = true;
-    });
+// Add Blazor services
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
 
 // Configure database with SQLite
 var connectionString = builder.Configuration.GetConnectionString("StoreDbContext")
@@ -53,19 +49,17 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
-    app.UseExceptionHandler("/Home/Error");
+    app.UseExceptionHandler("/error");
     app.UseHsts();
 }
 
-app.UseStatusCodePagesWithReExecute("/Home/StatusErrorCode", "?code={0}");
 app.UseResponseCompression();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-app.UseRouting();
+app.UseAntiforgery();
 
-// Map controller routes
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+// Map Blazor components
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
 
 await app.RunAsync();
